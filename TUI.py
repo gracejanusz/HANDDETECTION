@@ -90,7 +90,7 @@ def asl_trainer(target_letter='a'):
                 print("No hand detected. Try again.\n")
                 continue
             print(f"[Model Prediction]: {predicted}")
-            if predicted == target_letter.upper():
+            if predicted == target_letter.lower():
                 print("✅ Nice job! You got it right.")
                 break
             else:
@@ -102,4 +102,4 @@ def asl_trainer(target_letter='a'):
 # === Run trainer ===
 
 if __name__ == "__main__":
-    asl_trainer(target_letter='A')
+    asl_trainer(target_letter='a')
