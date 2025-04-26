@@ -1,3 +1,5 @@
+# asl_gui_trainer.py
+
 import sys
 import os
 import cv2
@@ -5,6 +7,7 @@ import torch
 import numpy as np
 import mediapipe as mp
 from PIL import Image
+import joblib
 
 from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QPushButton, QVBoxLayout, QMessageBox, QHBoxLayout
@@ -17,9 +20,9 @@ class ASLTrainerApp(QWidget):
         super().__init__()
 
         # === Setup ===
-        self.letters = letters if letters else list("abc")  # Update with more letters if needed
+        self.letters = letters if letters else list("abcdefghiklmnopqrstuvwxy")  # Skipping J and Z
         self.current_index = 0
-        self.model = self.load_model()
+        self.model, self.label_encoder, self.scaler = self.load_model()
         self.cap = cv2.VideoCapture(1)
 
         self.setWindowTitle("ASL Sign Trainer")
@@ -55,7 +58,7 @@ class ASLTrainerApp(QWidget):
         self.capture_btn.clicked.connect(self.capture_frame)
         self.button_row.addWidget(self.capture_btn)
 
-        # Next Button (disabled at first)
+        # Next Button
         self.next_btn = QPushButton("Next")
         self.next_btn.setFont(QFont("Arial", 18))
         self.next_btn.setEnabled(False)
@@ -70,28 +73,36 @@ class ASLTrainerApp(QWidget):
         # MediaPipe
         self.mp_hands = mp.solutions.hands
         self.hands = self.mp_hands.Hands(static_image_mode=True, max_num_hands=1, min_detection_confidence=0.5)
-        self.labels = self.letters  # Ensure model and labels are aligned
 
         self.load_current_letter()
 
-    def load_model(self, model_path='hand_gesture_model.pth', num_classes=3):
+    def load_model(self, model_path='hand_gesture_model.pth', encoder_path='label_encoder.pkl', scaler_path='scaler.pkl'):
+        # Must match your improved model (with 4 layers)
         class HandGestureModel(torch.nn.Module):
             def __init__(self, input_size, num_classes):
                 super().__init__()
-                self.fc1 = torch.nn.Linear(input_size, 128)
-                self.fc2 = torch.nn.Linear(128, 64)
-                self.fc3 = torch.nn.Linear(64, num_classes)
+                self.fc1 = torch.nn.Linear(input_size, 256)
+                self.fc2 = torch.nn.Linear(256, 128)
+                self.fc3 = torch.nn.Linear(128, 64)
+                self.fc4 = torch.nn.Linear(64, num_classes)
 
             def forward(self, x):
                 x = torch.relu(self.fc1(x))
                 x = torch.relu(self.fc2(x))
-                return self.fc3(x)
+                x = torch.relu(self.fc3(x))
+                x = self.fc4(x)
+                return x
 
         input_size = 63
-        model = HandGestureModel(input_size=input_size, num_classes=num_classes)
+        num_classes = 24
+        model = HandGestureModel(input_size, num_classes)
         model.load_state_dict(torch.load(model_path))
         model.eval()
-        return model
+
+        label_encoder = joblib.load(encoder_path)
+        scaler = joblib.load(scaler_path)
+
+        return model, label_encoder, scaler
 
     def load_current_letter(self):
         letter = self.letters[self.current_index]
@@ -104,9 +115,7 @@ class ASLTrainerApp(QWidget):
         if os.path.exists(path):
             try:
                 img = Image.open(path).resize((300, 300))
-                if img.mode == "L":
-                    img = img.convert("RGBA")
-                elif img.mode != "RGBA":
+                if img.mode != "RGBA":
                     img = img.convert("RGBA")
                 data = img.tobytes("raw", "RGBA")
                 qimg = QImage(data, img.width, img.height, QImage.Format_RGBA8888)
@@ -127,11 +136,17 @@ class ASLTrainerApp(QWidget):
         for lm in result.multi_hand_landmarks[0].landmark:
             landmarks.extend([lm.x, lm.y, lm.z])
 
-        input_tensor = torch.tensor(landmarks, dtype=torch.float32).unsqueeze(0)
+        landmarks = np.array(landmarks).reshape(1, -1)
+        landmarks = self.scaler.transform(landmarks)  # Normalize using saved scaler
+        input_tensor = torch.tensor(landmarks, dtype=torch.float32)
+
         with torch.no_grad():
             output = self.model(input_tensor)
             _, prediction = torch.max(output, 1)
-        return self.labels[prediction.item()]
+
+        predicted_index = prediction.item()
+        predicted_letter = self.label_encoder.inverse_transform([predicted_index])[0]
+        return predicted_letter
 
     def update_frame(self):
         ret, frame = self.cap.read()
@@ -154,7 +169,7 @@ class ASLTrainerApp(QWidget):
 
         if prediction is None:
             QMessageBox.information(self, "Try Again", "No hand detected.")
-        elif prediction == correct_letter:
+        elif prediction.lower() == correct_letter:
             QMessageBox.information(self, "Success", f"✅ Correct! You signed '{prediction.upper()}'.")
             self.next_btn.setEnabled(True)
         else:
@@ -175,6 +190,6 @@ class ASLTrainerApp(QWidget):
 # === Launch ===
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = ASLTrainerApp(letters=list("abc"))  # Or use list("abcdefghijklmnopqrstuvwxyz")
+    window = ASLTrainerApp(letters=list("abcdefghiklmnopqrstuvwxy"))  # 24 letters, no j, z
     window.show()
     sys.exit(app.exec())

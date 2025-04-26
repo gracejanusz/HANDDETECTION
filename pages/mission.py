@@ -7,10 +7,10 @@ st.set_page_config(page_title="Our Mission", page_icon="✨", layout="centered")
 
 # ---- Custom CSS Styling ----
 st.markdown(
-    """
+"""
     <style>
     .stApp {
-        background-color: #f7f5ed;
+    background-color: #f7f5ed;
     }
     h1, h2, h3, h4, h5, h6 {
         color: #42b3ff !important;
@@ -36,14 +36,8 @@ st.markdown(
     }
     </style>
 
-    <img
-        class="clickable-logo"
-        src="https://i.imgur.com/aNcjMFi.png"
-        width="120"
-        onclick="window.location.href='http://localhost:8501';"
-    >
-    """,
-    unsafe_allow_html=True  # <-- make sure this is outside the triple-quoted string
+""",
+    unsafe_allow_html=True# <-- make sure this is outside the triple-quoted string
 )
 
 

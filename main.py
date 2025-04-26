@@ -5,6 +5,7 @@ from firebase_admin import auth
 import base64
 import io
 
+
 def get_base64_of_bin_file(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
@@ -157,7 +158,7 @@ with col2:
 
     # Login Button
     if st.button("Login", key="login_button"):
-        st.switch_page("pages/login_page.py")  # Navigates to pages/login_page.py
+        st.switch_page("pages/log_in.py")  # Navigates to pages/login_page.py
 
 with col3:
     st.image("pictures/minihands3.png", use_container_width=True)
@@ -169,5 +170,4 @@ with col3:
 
 # ---- Footer (extra space at bottom) ----
 st.markdown("<br><br>", unsafe_allow_html=True)
-
 

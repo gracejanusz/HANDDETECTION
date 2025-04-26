@@ -2,6 +2,8 @@ import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, auth
 import os
+from dotenv import load_dotenv
+load_dotenv() 
 
 # ---- Initialize Firebase ----
 cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")

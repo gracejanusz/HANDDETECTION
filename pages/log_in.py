@@ -21,7 +21,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-color: white !important;
+    background-color: white !important;
     }
     .stButton>button {
         color: black !important;
@@ -50,7 +50,7 @@ st.markdown(
         font-weight: bold !important;
     }
     </style>
-    """,
+          """,
     unsafe_allow_html=True
 )
 
@@ -72,9 +72,9 @@ if login_button:
         url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={firebase_api_key}"
 
         payload = {
-            "email": email,
-            "password": password,
-            "returnSecureToken": True
+        "email": email,
+        "password": password,
+        "returnSecureToken": True
         }
 
         response = requests.post(url, json=payload)
