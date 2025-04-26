@@ -7,17 +7,6 @@ import requests
 from dotenv import load_dotenv
 import os
 
-# # ---- Load Environment Variables ----
-# load_dotenv()
-
-
-# # ---- Initialize Firebase ----
-
-# cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-# cred = credentials.Certificate(cred_path)
-# if not firebase_admin._apps:
-#     firebase_admin.initialize_app(cred)
-
 firebase_credentials = {
     "type": st.secrets["firebase"]["type"],
     "project_id": st.secrets["firebase"]["project_id"],
