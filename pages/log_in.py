@@ -17,7 +17,47 @@ if not firebase_admin._apps:
 
 st.set_page_config(page_title="Log In | BridgeSign", page_icon="🧏‍♀️", layout="centered")
 
-st.title("Welcome Back!")
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: white !important;
+    }
+    .stButton>button {
+        color: black !important;
+        background: #ffe9a5 !important; /* Blue */
+        border-radius: 8px !important;
+        height: 3em !important;
+        width: 100% !important;
+        font-size: 1.2em !important;
+        margin-top: 10px !important;
+    }
+    .stButton>button:hover {
+        background: #ffd96b !important; /* Orange */
+        color: black !important;
+    }
+    /* Text input styling */
+    .stTextInput>div>div>input {
+        background-color: #ffffff !important; /* Pure white input boxes */
+        color: black !important; /* Typing is black */
+        border-radius: 8px !important;
+        padding: 0.75rem !important;
+        font-size: 1em !important;
+    }
+    /* Label styling */
+    label {
+        color: #0077B6 !important; /* Make the field labels (Email, Password) blue */
+        font-weight: bold !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    "<h1 style='color:#0077B6; text-align: center;'>Welcome Back!</h1>",
+    unsafe_allow_html=True
+)
 
 email = st.text_input("Email")
 password = st.text_input("Password", type="password")
