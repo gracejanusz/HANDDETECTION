@@ -54,14 +54,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---- Logo at Top Left ----
-col_logo, col_empty = st.columns([1, 5])
-
-with col_logo:
-    st.image("pictures/logo_small.png", width=100)  # Top left logo
-
-with col_empty:
-    st.empty()
+# ---- Big Logo at the Top ----
+st.image("pictures/big_logo.png", use_container_width=True)
 
 # ---- Sidebar ----
 with st.sidebar:
@@ -104,11 +98,6 @@ with col2:
 
 with col3:
     st.empty()
-
-# ---- Big Logo at the Bottom ----
-st.markdown("<br><br>", unsafe_allow_html=True)
-
-st.image("pictures/logo_big.png", use_column_width=True)
 
 # ---- Footer (extra space at bottom) ----
 # ---- Footer (extra space at bottom) ----
