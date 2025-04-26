@@ -7,6 +7,9 @@ import requests
 from dotenv import load_dotenv
 import os
 
+st.write(st.secrets)
+
+
 firebase_credentials = {
     "type": st.secrets["firebase"]["type"],
     "project_id": st.secrets["firebase"]["project_id"],
