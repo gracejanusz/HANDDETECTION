@@ -5,7 +5,7 @@ from firebase_admin import credentials
 
 # ---- Initialize Firebase (only once) ----
 if not firebase_admin._apps:
-    cred = credentials.Certificate('handsin-e15d2-7fe9c1f743a4.json')
+    cred = credentials.Certificate('handsinactual-5abb2c6c4c1c.json')
     firebase_admin.initialize_app(cred)
 
 # ---- Set page config ----
@@ -62,19 +62,17 @@ st.markdown(
 st.markdown("<br><br>", unsafe_allow_html=True)
 
 # ---- Centered Call to Action: SIGN UP and LOGIN Buttons ----
-col1, col2, col3 = st.columns([2, 1, 2])
+st.markdown("<div style='text-align: center; max-width: 400px; margin: auto;'>", unsafe_allow_html=True)
 
-with col1:
-    st.empty()
-
-with col2:
-    # Sign Up Button
-    if st.button("Sign Up", key="signup_button"):
-        st.switch_page("pages/sign_up.py")  # ✅ Navigates to Sign Up page
+if st.button("Login", key="login_button"):
+    st.switch_page("pages/log_in.py")
+    
+if st.button("Sign Up", key="signup_button"):
+    st.switch_page("pages/sign_up.py")
 
 
-with col3:
-    st.empty()
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 # ---- Footer (extra space at bottom) ----
 st.markdown("<br><br>", unsafe_allow_html=True)
