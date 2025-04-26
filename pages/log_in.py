@@ -7,14 +7,33 @@ import requests
 from dotenv import load_dotenv
 import os
 
-# ---- Load Environment Variables ----
-load_dotenv()
+# # ---- Load Environment Variables ----
+# load_dotenv()
 
 
-# ---- Initialize Firebase ----
+# # ---- Initialize Firebase ----
 
-cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-cred = credentials.Certificate(cred_path)
+# cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+# cred = credentials.Certificate(cred_path)
+# if not firebase_admin._apps:
+#     firebase_admin.initialize_app(cred)
+
+firebase_credentials = {
+    "type": st.secrets["firebase"]["type"],
+    "project_id": st.secrets["firebase"]["project_id"],
+    "private_key_id": st.secrets["firebase"]["private_key_id"],
+    "private_key": st.secrets["firebase"]["private_key"],
+    "client_email": st.secrets["firebase"]["client_email"],
+    "client_id": st.secrets["firebase"]["client_id"],
+    "auth_uri": st.secrets["firebase"]["auth_uri"],
+    "token_uri": st.secrets["firebase"]["token_uri"],
+    "auth_provider_x509_cert_url": st.secrets["firebase"]["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": st.secrets["firebase"]["client_x509_cert_url"],
+    "universe_domain": st.secrets["firebase"]["universe_domain"],
+}
+
+cred = credentials.Certificate(firebase_credentials)
+
 if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
