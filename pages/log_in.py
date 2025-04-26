@@ -1,24 +1,30 @@
+# pages/log_in.py
+
 import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, auth
-import os
+import requests
 from dotenv import load_dotenv
+import os
+
+# ---- Load Environment Variables ----
 load_dotenv()
 
+
 # ---- Initialize Firebase ----
+
 cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 cred = credentials.Certificate(cred_path)
 if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
-st.set_page_config(page_title="Sign Up | BridgeSign", page_icon="🧏‍♀️", layout="centered")
+st.set_page_config(page_title="Log In | BridgeSign", page_icon="🧏‍♀️", layout="centered")
 
-# ---- Page Background and Custom Styles ----
 st.markdown(
     """
     <style>
     .stApp {
-        background-color: white !important;
+    background-color: white !important;
     }
     .stButton>button {
         color: black !important;
@@ -47,41 +53,46 @@ st.markdown(
         font-weight: bold !important;
     }
     </style>
-    """,
+          """,
     unsafe_allow_html=True
 )
 
-
-# ---- Page Content ----
 st.markdown(
-    "<h1 style='color:#0077B6; text-align: center;'>Create Your HandsIn Account!</h1>",
+    "<h1 style='color:#0077B6; text-align: center;'>Welcome Back!</h1>",
     unsafe_allow_html=True
 )
 
 email = st.text_input("Email")
 password = st.text_input("Password", type="password")
-confirm_password = st.text_input("Confirm Password", type="password")
 
-signup_button = st.button("Sign Up")
+login_button = st.button("Log In")
 
-if signup_button:
-    if password != confirm_password:
-        st.error("Passwords do not match.")
-    elif len(password) < 6:
-        st.error("Password must be at least 6 characters long.")
-    else:
-        try:
-            user = auth.create_user(
-                email=email,
-                password=password
-            )
-            st.success("Account created successfully! 🎉 You can now log in.")
-            st.session_state["signup_successful"] = True
-            st.switch_page("pages/log_in.py")
+if login_button:
+    try:
+        # Securely load API key
+        firebase_api_key = os.getenv("FIREBASE_API_KEY")
 
-        except Exception as e:
-            st.error(f"Signup failed: {e}")
+        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={firebase_api_key}"
+
+        payload = {
+        "email": email,
+        "password": password,
+        "returnSecureToken": True
+        }
+
+        response = requests.post(url, json=payload)
+        result = response.json()
+
+        if "idToken" in result:
+            st.success("Login successful! 🎉 Redirecting...")
+            st.session_state["user"] = result
+            st.switch_page("pages/library.py")
+        else:
+            st.error(f"Login failed: {result.get('error', {}).get('message', 'Unknown error')}")
+
+    except Exception as e:
+        st.error(f"Login failed: {e}")
 
 else:
-    if st.button("Back to Home", key="back_home_button"):
+    if st.button("Back to Home", key="back_home_button_login"):
         st.switch_page("main.py")
