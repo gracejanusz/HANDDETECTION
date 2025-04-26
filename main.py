@@ -4,50 +4,15 @@ from PIL import Image
 # Set page config
 st.set_page_config(page_title="BridgeSign", page_icon="🧏‍♀️", layout="centered")
 
-# ---- CUSTOM CSS for background and button styling ----
-# ---- CUSTOM CSS for background and button styling ----
+# ---- CUSTOM CSS to make background white ----
 st.markdown(
     """
     <style>
     body {
-        background-color: #f7f5ed;
-        background-color: #f7f5ed;
+        background-color: #ffffff;
     }
     .stApp {
-        background-color: #f7f5ed;
-    }
-
-    /* Style the Sign Up button */
-    div.stButton > button {
-        background-color: #ffe9a5;
-        color: black;
-        border: none;
-        padding: 0.75em 2em; /* Bigger button */
-        border-radius: 8px;
-        font-size: 18px;
-        font-weight: bold;
-        width: 100%; /* Make button fill the column */
-    }
-    div.stButton > button:hover {
-        background-color: #ffd96b;
-        color: black;
-        background-color: #f7f5ed;
-    }
-
-    /* Style the Sign Up button */
-    div.stButton > button {
-        background-color: #ffe9a5;
-        color: black;
-        border: none;
-        padding: 0.75em 2em; /* Bigger button */
-        border-radius: 8px;
-        font-size: 18px;
-        font-weight: bold;
-        width: 100%; /* Make button fill the column */
-    }
-    div.stButton > button:hover {
-        background-color: #ffd96b;
-        color: black;
+        background-color: #ffffff;
     }
     </style>
     """,
@@ -57,6 +22,15 @@ st.markdown(
 # ---- Big Logo at the Top ----
 st.image("pictures/big_logo.png", use_container_width=True)
 
+# ---- Logo at Top Left ----
+col_logo, col_empty = st.columns([1, 5])
+
+with col_logo:
+    st.image("pictures/logo_small.png", width=100)  # Top left logo
+
+with col_empty:
+    st.empty()
+
 # ---- Sidebar ----
 with st.sidebar:
     st.header("BridgeSign")
@@ -65,40 +39,30 @@ with st.sidebar:
 # ---- Main Title ----
 st.markdown(
     """
-    <h1 style='text-align: center; color: #0277b5;'>The AI Sign Language Trainer for Healthcare</h1>
-    <h4 style='text-align: center; color: #2aaaff;'>An interactive platform helping professionals build essential ASL skills through AI-driven practice.</h4>
-    <h1 style='text-align: center; color: #0277b5;'>The AI Sign Language Trainer for Healthcare</h1>
-    <h4 style='text-align: center; color: #2aaaff;'>An interactive platform helping professionals build essential ASL skills through AI-driven practice.</h4>
+    <h1 style='text-align: center; color: #20522e;'>The AI Sign Language Trainer for Healthcare</h1>
+    <h4 style='text-align: center; color: #444;'>An interactive platform helping professionals build essential ASL skills through AI-driven practice.</h4>
     """,
     unsafe_allow_html=True
 )
 
-# ---- Add vertical space before the Sign Up button ----
-st.markdown("<br><br>", unsafe_allow_html=True)
-
-# ---- Add vertical space before the Sign Up button ----
-st.markdown("<br><br>", unsafe_allow_html=True)
-
 # ---- Centered Call to Action: SIGN UP Button ----
-col1, col2, col3 = st.columns([2, 1, 2])
+st.markdown("<div style='text-align: center; padding: 100;'>", unsafe_allow_html=True)
 
-with col1:
-    st.empty()
-col1, col2, col3 = st.columns([2, 1, 2])
-
-with col1:
-    st.empty()
-
-with col2:
-    if st.button("Sign Up", key="signup_button"):
-        st.switch_page("pages/sign_up.py")
-with col2:
-    if st.button("Sign Up", key="signup_button"):
-        st.switch_page("pages/sign_up.py")
+if st.button("Sign Up", key="signup_button"):
+    st.switch_page("pages/sign_up.py")
 
 with col3:
     st.empty()
 
-# ---- Footer (extra space at bottom) ----
-# ---- Footer (extra space at bottom) ----
+# ---- Trust Section ----
+st.markdown(
+    """
+    <div style='text-align: center; margin-top: 30px; color: #888;'>
+        Backed by <img src='https://upload.wikimedia.org/wikipedia/commons/6/69/Y_Combinator_logo.svg' width='90'>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# ---- Footer ----
 st.markdown("<br><br>", unsafe_allow_html=True)
