@@ -13,3 +13,5 @@ __pycache__/
 .vscode/
 
 handsinactual-30cac52ad9e6.json
+.streamlit
+.streamlit/secrets.toml
