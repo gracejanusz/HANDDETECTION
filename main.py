@@ -1,7 +1,14 @@
 import streamlit as st
 from PIL import Image
+import firebase_admin
+from firebase_admin import credentials
 
-# Set page config
+# ---- Initialize Firebase (only once) ----
+if not firebase_admin._apps:
+    cred = credentials.Certificate('handsin-e15d2-7fe9c1f743a4.json')
+    firebase_admin.initialize_app(cred)
+
+# ---- Set page config ----
 st.set_page_config(page_title="BridgeSign", page_icon="🧏‍♀️", layout="centered")
 
 # ---- CUSTOM CSS for background and button styling ----
@@ -14,17 +21,16 @@ st.markdown(
     .stApp {
         background-color: #f7f5ed;
     }
-
-    /* Style the Sign Up button */
     div.stButton > button {
         background-color: #ffe9a5;
         color: black;
         border: none;
-        padding: 0.75em 2em; /* Bigger button */
+        padding: 0.75em 2em;
         border-radius: 8px;
         font-size: 18px;
         font-weight: bold;
-        width: 100%; /* Make button fill the column */
+        width: 100%;
+        margin-bottom: 0.5em;
     }
     div.stButton > button:hover {
         background-color: #ffd96b;
@@ -52,18 +58,20 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---- Add vertical space before the Sign Up button ----
+# ---- Add vertical space before buttons ----
 st.markdown("<br><br>", unsafe_allow_html=True)
 
-# ---- Centered Call to Action: SIGN UP Button ----
+# ---- Centered Call to Action: SIGN UP and LOGIN Buttons ----
 col1, col2, col3 = st.columns([2, 1, 2])
 
 with col1:
     st.empty()
 
 with col2:
+    # Sign Up Button
     if st.button("Sign Up", key="signup_button"):
-        st.switch_page("pages/sign_up.py")
+        st.switch_page("pages/sign_up.py")  # ✅ Navigates to Sign Up page
+
 
 with col3:
     st.empty()
