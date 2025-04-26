@@ -36,6 +36,24 @@ st.markdown(
         background-color: #ffd96b;
         color: black;
     }
+    .mission-button > button {
+        background-color: #0277b5;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        width: 40%;
+        min-width: 150px;
+        max-width: 200px;
+        margin-top: 1em;
+        cursor: pointer;
+    }
+    .mission-button > button:hover {
+        background-color: #026099;
+        color: white;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -49,7 +67,7 @@ with st.sidebar:
     st.header("BridgeSign")
     st.markdown("**Empowering Communication**")
 
-# ---- Main Title ----
+# ---- Main Title and Description ----
 st.markdown(
     """
     <h1 style='text-align: center; color: #0277b5;'>The AI Sign Language Trainer for Healthcare</h1>
@@ -58,19 +76,25 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---- Add vertical space before buttons ----
+# ---- Smaller, Centered Our Mission Button ----
+st.markdown("<div class='mission-button' style='text-align: center;'>", unsafe_allow_html=True)
+
+if st.button("Our Mission", key="mission_button"):
+    st.switch_page("pages/mission.py")
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+# ---- Add vertical space before Login and Sign Up buttons ----
 st.markdown("<br><br>", unsafe_allow_html=True)
 
-# ---- Centered Call to Action: SIGN UP and LOGIN Buttons ----
+# ---- Centered Call to Action: LOGIN and SIGN UP Buttons ----
 st.markdown("<div style='text-align: center; max-width: 400px; margin: auto;'>", unsafe_allow_html=True)
 
 if st.button("Login", key="login_button"):
     st.switch_page("pages/log_in.py")
-    
+
 if st.button("Sign Up", key="signup_button"):
     st.switch_page("pages/sign_up.py")
-
-
 
 st.markdown("</div>", unsafe_allow_html=True)
 
