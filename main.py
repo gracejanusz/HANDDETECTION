@@ -107,9 +107,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---- Big Logo at the Top ----
-st.image("pictures/big_logo.png", use_container_width=True)
-
 # ---- Sidebar ----
 with st.sidebar:
     st.header("BridgeSign")
@@ -126,7 +123,6 @@ with col1:
     st.image("pictures/minihands2.png", use_container_width=True)
     st.image("pictures/minihands3.png", use_container_width=True)
     st.image("pictures/minihands4.png", use_container_width=True)
-
 
 
 with col2:
