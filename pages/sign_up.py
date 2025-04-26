@@ -1,9 +1,11 @@
 import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, auth
+import os
 
 # ---- Initialize Firebase ----
-cred = credentials.Certificate('handsinactual-5abb2c6c4c1c.json')
+cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+cred = credentials.Certificate(cred_path)
 if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
