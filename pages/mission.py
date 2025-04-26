@@ -4,6 +4,30 @@ import streamlit as st
 
 st.set_page_config(page_title="Our Mission", page_icon=":sparkles:")
 
+# ---- Custom CSS for background and text colors ----
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #f7f5ed;
+        color: #0277b5;
+    }
+    .stApp {
+        background-color: #f7f5ed;
+        color: #0277b5;
+    }
+    h1 {
+        color: #0277b5;
+    }
+    .stSubheader {
+        color: #f8c434 !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# ---- Mission Content ----
 st.title("Our Mission")
 st.write("""
 We are a B2B platform designed to help service providers build essential ASL skills through interactive, AI-driven practice. 
