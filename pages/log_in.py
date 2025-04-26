@@ -85,7 +85,7 @@ with col2:
     if login_button:
         try:
             # Securely load API key
-            firebase_api_key = os.getenv("FIREBASE_API_KEY")
+            firebase_api_key = st.secrets["firebase"]["api_key"]
 
             url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={firebase_api_key}"
 
