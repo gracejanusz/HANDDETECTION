@@ -19,10 +19,12 @@ def get_image_html(image_path, width=575):
 st.set_page_config(page_title="BridgeSign", page_icon="🧏‍♀️", layout="wide")
 
 # ---- CUSTOM CSS for background and button styling ----
+# ---- CUSTOM CSS for background and button styling ----
 st.markdown(
     """
     <style>
     body {
+        background-color: #f7f5ed;
         background-color: #f7f5ed;
     }
     .stApp {
@@ -105,6 +107,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# ---- Big Logo at the Top ----
+st.image("pictures/big_logo.png", use_container_width=True)
+
 # ---- Sidebar ----
 with st.sidebar:
     st.header("BridgeSign")
@@ -168,4 +173,5 @@ with col3:
 
 # ---- Footer (extra space at bottom) ----
 st.markdown("<br><br>", unsafe_allow_html=True)
+
 
