@@ -67,7 +67,7 @@ st.markdown("<h1>Learning Library</h1>", unsafe_allow_html=True)
 st.markdown(
     """
     <div class="welcome-text">
-        Welcome to your BridgeSign learning library! Here you can access interactive lessons 
+        Welcome to your BridgeSign learning library! Here you can access interactive lessons
         designed to help you build foundational ASL skills.
     </div>
     """,
