@@ -21,6 +21,7 @@ st.markdown(
 
 # ---- Big Logo at the Top ----
 st.image("pictures/big_logo.png", use_container_width=True)
+<<<<<<< HEAD
 
 # ---- Logo at Top Left ----
 col_logo, col_empty = st.columns([1, 5])
@@ -30,6 +31,8 @@ with col_logo:
 
 with col_empty:
     st.empty()
+=======
+>>>>>>> 6858355a (color changes)
 
 # ---- Sidebar ----
 with st.sidebar:
@@ -54,6 +57,7 @@ if st.button("Sign Up", key="signup_button"):
 with col3:
     st.empty()
 
+<<<<<<< HEAD
 # ---- Trust Section ----
 st.markdown(
     """
@@ -65,4 +69,7 @@ st.markdown(
 )
 
 # ---- Footer ----
+=======
+# ---- Footer (extra space at bottom) ----
+>>>>>>> 6858355a (color changes)
 st.markdown("<br><br>", unsafe_allow_html=True)
