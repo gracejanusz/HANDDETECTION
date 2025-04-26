@@ -10,8 +10,11 @@ import os
 # ---- Load Environment Variables ----
 load_dotenv()
 
+
 # ---- Initialize Firebase ----
-cred = credentials.Certificate('handsinactual-5abb2c6c4c1c.json')
+
+cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+cred = credentials.Certificate(cred_path)
 if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
