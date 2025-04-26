@@ -11,7 +11,7 @@ cred = credentials.Certificate(cred_path)
 if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
-st.set_page_config(page_title="Sign Up | BridgeSign", page_icon="🧏‍♀️", layout="centered")
+st.set_page_config(page_title="Sign Up | BridgeSign", page_icon="🧏‍♀️", layout="wide")
 
 # ---- Page Background and Custom Styles ----
 st.markdown(
@@ -51,37 +51,51 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+col1, col2, col3 = st.columns([1.5, 3, 1.5])
 
-# ---- Page Content ----
-st.markdown(
-    "<h1 style='color:#0077B6; text-align: center;'>Create Your HandsIn Account!</h1>",
-    unsafe_allow_html=True
-)
+with col1:
+    st.image("pictures/minihands1.png", use_container_width=True)
+    st.image("pictures/minihands2.png", use_container_width=True)
 
-email = st.text_input("Email")
-password = st.text_input("Password", type="password")
-confirm_password = st.text_input("Confirm Password", type="password")
+with col2:
+    # ---- Page Content ----
+    st.markdown(
+        "<h1 style='color:#0077B6; text-align: center;'>Create Your HandsIn Account!</h1>",
+        unsafe_allow_html=True
+    )
 
-signup_button = st.button("Sign Up")
+    email = st.text_input("Email")
+    password = st.text_input("Password", type="password")
+    confirm_password = st.text_input("Confirm Password", type="password")
 
-if signup_button:
-    if password != confirm_password:
-        st.error("Passwords do not match.")
-    elif len(password) < 6:
-        st.error("Password must be at least 6 characters long.")
+    signup_button = st.button("Sign Up")
+
+    if signup_button:
+        if password != confirm_password:
+            st.error("Passwords do not match.")
+        elif len(password) < 6:
+            st.error("Password must be at least 6 characters long.")
+        else:
+            try:
+                user = auth.create_user(
+                    email=email,
+                    password=password
+                )
+                st.success("Account created successfully! 🎉 You can now log in.")
+                st.session_state["signup_successful"] = True
+                st.switch_page("pages/log_in.py")
+
+            except Exception as e:
+                st.error(f"Signup failed: {e}")
+
     else:
-        try:
-            user = auth.create_user(
-                email=email,
-                password=password
-            )
-            st.success("Account created successfully! 🎉 You can now log in.")
-            st.session_state["signup_successful"] = True
-            st.switch_page("pages/log_in.py")
+        if st.button("Back to Home", key="back_home_button"):
+            st.switch_page("main.py")
 
-        except Exception as e:
-            st.error(f"Signup failed: {e}")
+with col3:
+    st.image("pictures/minihands3.png", use_container_width=True)
+    st.image("pictures/minihands4.png", use_container_width=True)
 
-else:
-    if st.button("Back to Home", key="back_home_button"):
-        st.switch_page("main.py")
+
+# ---- Footer (extra space at bottom) ----
+st.markdown("<br><br>", unsafe_allow_html=True)

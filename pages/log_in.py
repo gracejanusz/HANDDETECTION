@@ -18,7 +18,7 @@ cred = credentials.Certificate(cred_path)
 if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
-st.set_page_config(page_title="Log In | BridgeSign", page_icon="🧏‍♀️", layout="centered")
+st.set_page_config(page_title="Log In | BridgeSign", page_icon="🧏‍♀️", layout="wide")
 
 st.markdown(
     """
@@ -57,42 +57,56 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown(
-    "<h1 style='color:#0077B6; text-align: center;'>Welcome Back!</h1>",
-    unsafe_allow_html=True
-)
+col1, col2, col3 = st.columns([1.5, 3, 1.5])
 
-email = st.text_input("Email")
-password = st.text_input("Password", type="password")
+with col1:
+    st.image("pictures/minihands1.png", use_container_width=True)
+    st.image("pictures/minihands2.png", use_container_width=True)
 
-login_button = st.button("Log In")
+with col2:
+    st.markdown(
+        "<h1 style='color:#0077B6; text-align: center;'>Welcome Back!</h1>",
+        unsafe_allow_html=True
+    )
 
-if login_button:
-    try:
-        # Securely load API key
-        firebase_api_key = os.getenv("FIREBASE_API_KEY")
+    email = st.text_input("Email")
+    password = st.text_input("Password", type="password")
 
-        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={firebase_api_key}"
+    login_button = st.button("Log In")
 
-        payload = {
-        "email": email,
-        "password": password,
-        "returnSecureToken": True
-        }
+    if login_button:
+        try:
+            # Securely load API key
+            firebase_api_key = os.getenv("FIREBASE_API_KEY")
 
-        response = requests.post(url, json=payload)
-        result = response.json()
+            url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={firebase_api_key}"
 
-        if "idToken" in result:
-            st.success("Login successful! 🎉 Redirecting...")
-            st.session_state["user"] = result
-            st.switch_page("pages/library.py")
-        else:
-            st.error(f"Login failed: {result.get('error', {}).get('message', 'Unknown error')}")
+            payload = {
+            "email": email,
+            "password": password,
+            "returnSecureToken": True
+            }
 
-    except Exception as e:
-        st.error(f"Login failed: {e}")
+            response = requests.post(url, json=payload)
+            result = response.json()
 
-else:
-    if st.button("Back to Home", key="back_home_button_login"):
-        st.switch_page("main.py")
+            if "idToken" in result:
+                st.success("Login successful! 🎉 Redirecting...")
+                st.session_state["user"] = result
+                st.switch_page("pages/library.py")
+            else:
+                st.error(f"Login failed: {result.get('error', {}).get('message', 'Unknown error')}")
+
+        except Exception as e:
+            st.error(f"Login failed: {e}")
+
+    else:
+        if st.button("Back to Home", key="back_home_button_login"):
+            st.switch_page("main.py")
+
+with col3:
+    st.image("pictures/minihands3.png", use_container_width=True)
+    st.image("pictures/minihands4.png", use_container_width=True)
+
+# ---- Footer (extra space at bottom) ----
+st.markdown("<br><br>", unsafe_allow_html=True)
