@@ -43,7 +43,7 @@ hands = mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5
 labels = ['A', 'B', 'C']
 
 # Start video capture
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 # Load the trained model
 model = load_model()
