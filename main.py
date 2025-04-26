@@ -76,3 +76,4 @@ with col3:
 
 # ---- Footer (extra space at bottom) ----
 st.markdown("<br><br>", unsafe_allow_html=True)
+
