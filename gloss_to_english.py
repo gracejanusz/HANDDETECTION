@@ -29,7 +29,10 @@ def english_to_gloss(english_text):
     try:
         convo.send_message(prompt)
         gloss_text = convo.last.text.strip()
-        # Basic post-processing: Ensure gloss is uppercase
+        # Check if the response starts with "GLOSS: " and remove it
+        if gloss_text.startswith("GLOSS: "):
+            gloss_text = gloss_text[len("GLOSS: "):].strip()
+        # Ensure gloss is uppercase
         return gloss_text.upper()
     except Exception as e:
         print(f"An error occurred during English to gloss conversion: {e}")
