@@ -1,6 +1,27 @@
 import streamlit as st
 import os
+import base64
+import io
 from stickyhelper import st_fixed_container
+
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def get_base64_video(video_path):
+    with open(video_path, 'rb') as video_file:
+        video_bytes = video_file.read()
+    return base64.b64encode(video_bytes).decode()
+
+def get_image_html(image_path, width=600):
+    img_base64 = get_base64_of_bin_file(image_path)
+    html_code = f"""
+    <img id="logo" class="logo"
+         src="data:image/png;base64,{img_base64}"
+         style="width: {width}px; display: block; margin-left: auto; margin-right: auto;">
+    """
+    return html_code
 
 # ---- Set page config ----
 st.set_page_config(page_title="Library | BridgeSign", page_icon="📚", layout="wide")
@@ -54,26 +75,26 @@ st.markdown(
 )
 
 with st_fixed_container(mode="fixed", position="top", border=True, horizontal_position="right", key="top_right"):
-    if st.button("Sign Up", key="signup_button"):
-        st.switch_page("pages/sign_up.py")
-
-    if st.button("Login", key="login_button"):
-        st.switch_page("pages/log_in.py")
-
-with st_fixed_container(mode="fixed", position="top", border=True, horizontal_position="left", key="top_left"):
-    if st.button("Resources", key="signup_button1"):
-        st.switch_page("pages/sign_up.py")
-
-    if st.button("About Us", key="login_button2"):
-        st.switch_page("pages/log_in.py")
-
-
+    st.markdown(
+        """
+        <div style="text-align: center; padding: 8px;">
+            <h4 style="margin: 5px 0;">        User Name</h4>
+            <p style="font-size: 12px; color: grey; margin: 2px 0;">Healthcare Specialist</p>
+            <p style="font-size: 12px; color: grey; margin: 2px 0;">username@example.com</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    st.button("Log Out", use_container_width=True)
 
 col1, col2, col3 = st.columns([1.5, 3, 1.5])
 
 with col1:
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown(get_image_html("pictures/big_logo.png"), unsafe_allow_html=True)
+
     st.image("pictures/minihands3.png", use_container_width=True)
-    st.image("pictures/minihands4.png", use_container_width=True)
 
 with col2:
     # ---- Library Page Content ----
@@ -109,14 +130,19 @@ with col2:
     if st.button("🗣️ Talk with an Avatar!", key="talk_with_avatar"):
         st.switch_page("pages/lesson_everyday.py")
 
-    if st.button("🏃‍♂️ Verbs", key="verbs_lesson"):
-        st.switch_page("pages/lesson_verbs.py")
-
     st.markdown("<br><br>", unsafe_allow_html=True)
 
 with col3:
-    st.image("pictures/minihands4.png", use_container_width=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+
     st.image("pictures/minihands3.png", use_container_width=True)
 
-# ---- Footer (extra space at bottom) ----
-st.markdown("<br><br>", unsafe_allow_html=True)
