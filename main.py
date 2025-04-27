@@ -5,7 +5,7 @@ from PIL import Image
 import base64
 import io
 from stickyhelper import st_fixed_container
-video_file = open('Videos/mainrealvideo.mp4', 'rb')
+video_file = open('Videos/clothed_video_main.mp4', 'rb')
 video_bytes = video_file.read()
 
 
@@ -184,7 +184,7 @@ with col2:
     st.markdown("<br>", unsafe_allow_html=True)
 
 
-    video_base64 = get_base64_video('Videos/mainrealvideo.mp4')
+    video_base64 = get_base64_video('Videos/clothed_video_main.mp4')
 
     st.markdown(
         f"""
