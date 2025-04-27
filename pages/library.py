@@ -128,7 +128,7 @@ with col2:
         st.switch_page("pages/alphabet.py")
 
     if st.button("🗣️ Talk with an Avatar!", key="talk_with_avatar"):
-        st.switch_page("pages/lesson_everyday.py")
+        st.switch_page("pages/avatar_talk.py")
 
     st.markdown("<br><br>", unsafe_allow_html=True)
 
