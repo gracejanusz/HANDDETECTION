@@ -23,19 +23,25 @@ model = genai.GenerativeModel('gemini-1.5-pro')
 
 st.title("Avatar Generation")
 
+col1, col2 = st.columns(2)
+
+with col1:
+    st.subheader("Your Video Feed")
+    user_video_feed = st.camera_input("Live Feed", label_visibility="hidden")
+
+# The avatar video will be displayed in col2 later
+
 english_phrase = st.text_input("Enter an English phrase to generate an avatar video:")
 
 if st.button("Generate Avatar Video"):
     if english_phrase:
-            
-        st.info("Generating response using Gemini API...")
+
         try:
             # Call Gemini API to get a response
             response = model.generate_content(english_phrase.strip())
             gemini_response_text = response.text.strip()
             if english_phrase == 'Hello':
                 gemini_response_text = 'My Name is Andy what is your name'
-            st.write(f"Gemini Response: {gemini_response_text}")
 
             # Use the Gemini response for gloss translation and video generation
             gloss_phrase = english_to_gloss(gemini_response_text)
@@ -43,20 +49,18 @@ if st.button("Generate Avatar Video"):
 
             # Define the directory where avatar videos are saved
             avatar_output_dir = os.path.join("Videos", "avatar_output")
-            expected_filename_pattern = os.path.join(avatar_output_dir, f"{gloss_filename_base}_initial*.mp4")
+            expected_filename_pattern = os.path.join(avatar_output_dir, f"{gloss_filename_base}*initial.mp4")
 
             # Check if a matching file already exists
             existing_videos = glob.glob(expected_filename_pattern)
 
             if existing_videos:
-                st.info("Found existing avatar video.")
                 # Display the first matching video found
-                st.video(existing_videos[0])
+                with col2:
+                    st.video(existing_videos[0])
                 st.success("Displayed existing AI Avatar video.")
                 st.stop()
             else:
-                st.info("No existing video found. Generating initial video...")
-                st.write(f"Translated Gloss: {gloss_phrase}")
 
                 # Split gloss into words
                 gloss_words = gloss_phrase.split()
@@ -67,7 +71,6 @@ if st.button("Generate Avatar Video"):
                     word_video_path = os.path.join("Videos", f"{word}.mp4")
 
                     if os.path.exists(word_video_path):
-                        st.write(f"Using existing video for '{word}': {word_video_path}")
                         video_paths.append(word_video_path)
                     else:
                         video_path, is_sign_video = download_signsavvy_video(word)
@@ -80,27 +83,26 @@ if st.button("Generate Avatar Video"):
                         if video_path:
                             video_paths.append(video_path)
                             if is_fingerspelled:
-                                st.write(f"Using fingerspelled video for '{word}'.")
+                                pass
                             else:
-                                st.write(f"Using sign video for '{word}'.")
+                                pass
                         else:
-                            st.warning(f"Could not find or create video for '{word}'. Skipping.")
+                            pass
 
                 if video_paths:
                     output_video_path = os.path.join("Videos", gloss_filename_base + "_initial.mp4") # Use underscores and add _initial
                     concatenated_video = concatenate_videos_ffmpeg(video_paths, output_video_path)
 
                     if concatenated_video:
-                        st.success("Initial combined video generated.")
-                        st.video(concatenated_video)
+                        st.info("Creating Ai video")
 
-                        st.info("Sending video to Mr. Robot for avatar generation...")
                         # Call mr_robot.py function with the generated video path
                         final_video_path = generate_avatar(concatenated_video)
 
                         if final_video_path:
                             st.success("AI Avatar video generated:")
-                            st.video(final_video_path)
+                            with col2:
+                                st.video(final_video_path)
                         else:
                             st.error("Failed to generate or retrieve the AI Avatar video.")
 
