@@ -37,7 +37,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-color: white !important;
+        background-color: #f7f5ed !important;
     }
     .stButton>button {
         color: black !important;
@@ -73,8 +73,8 @@ st.markdown(
 col1, col2, col3 = st.columns([1.5, 3, 1.5])
 
 with col1:
-    st.image("pictures/minihands1.png", use_container_width=True)
-    st.image("pictures/minihands2.png", use_container_width=True)
+    st.image("pictures/minihands3.png", use_container_width=True)
+    st.image("pictures/minihands4.png", use_container_width=True)
 
 with col2:
     # ---- Page Content ----
