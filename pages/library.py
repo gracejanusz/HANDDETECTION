@@ -77,9 +77,9 @@ with st_fixed_container(mode="fixed", position="top", border=True, horizontal_po
     st.markdown(
         """
         <div style="text-align: center; padding: 8px;">
-            <h4 style="margin: 5px 0;">        User Name</h4>
+            <h4 style="margin: 5px 0;">        hacktech</h4>
             <p style="font-size: 12px; color: grey; margin: 2px 0;">Healthcare Specialist</p>
-            <p style="font-size: 12px; color: grey; margin: 2px 0;">username@example.com</p>
+            <p style="font-size: 12px; color: grey; margin: 2px 0;">hacktech@gmail.com</p>
         </div>
         """,
         unsafe_allow_html=True
