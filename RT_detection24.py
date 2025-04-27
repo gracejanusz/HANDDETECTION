@@ -88,7 +88,7 @@ while cap.isOpened():
             if confidence > 0.80:
                 predicted_label = label_encoder.inverse_transform([predicted.item()])[0]
                 predictions_queue.append(predicted_label)
-
+ 
                 # Majority vote in last 5 frames
                 final_prediction = max(set(predictions_queue), key=predictions_queue.count)
 
