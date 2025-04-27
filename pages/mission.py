@@ -53,6 +53,9 @@ st.markdown(
         color: black !important;
     }
     </style>
+    <script>
+        window.scrollTo(0, 0);
+    </script>
     """,
     unsafe_allow_html=True
 )

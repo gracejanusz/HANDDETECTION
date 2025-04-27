@@ -16,7 +16,7 @@ OPAQUE_CONTAINER_CSS = """
 }}
 div[data-testid="stVerticalBlockBorderWrapper"]:has(div.opaque-container-{id}):not(:has(div.not-opaque-container)) div[data-testid="stVerticalBlock"]:has(div.opaque-container-{id}):not(:has(div.not-opaque-container)) > div[data-testid="stVerticalBlockBorderWrapper"] {{
     background-color: #ffd96b;
-    width: 24%;
+    width: 100%;
 }}
 div[data-testid="stVerticalBlockBorderWrapper"]:has(div.opaque-container-{id}):not(:has(div.not-opaque-container)) div[data-testid="stVerticalBlock"]:has(div.opaque-container-{id}):not(:has(div.not-opaque-container)) > div[data-testid="element-container"] {{
     display: none;
@@ -89,9 +89,11 @@ FIXED_CONTAINER_CSS = """
 div[data-testid="stVerticalBlockBorderWrapper"]:has(div.fixed-container-{id}):not(:has(div.not-fixed-container)){{
     background-color: transparent;
     position: {mode};
-    width: inherit;
-    background-color: inherit;
     {position}: {margin};
+    {horizontal_css}
+    width: 300px;
+    max-width: 300px;
+    background-color: inherit;
     z-index: 999;
 }}
 div[data-testid="stVerticalBlockBorderWrapper"]:has(div.fixed-container-{id}):not(:has(div.not-fixed-container)) div[data-testid="stVerticalBlock"]:has(div.fixed-container-{id}):not(:has(div.not-fixed-container)) > div[data-testid="element-container"] {{
@@ -115,9 +117,16 @@ def st_fixed_container(
     mode: Literal["fixed", "sticky"] = "fixed",
     position: Literal["top", "bottom"] = "top",
     margin: str | None = None,
+    horizontal_position: Literal["left", "center", "right"] = "center",
     transparent: bool = False,
     key: str | None = None,
 ):
+    if horizontal_position == "right":
+        horizontal_css = "right: 6.1rem; left: auto; left: unset;"
+    elif horizontal_position == "left":
+        horizontal_css = "left: 6.1rem; right: auto; right: unset;"
+    else:  # center
+        horizontal_css = "left: 50%; transform: translateX(-50%); right: auto;"
     if margin is None:
         margin = MARGINS[position]
     global fixed_counter
@@ -128,7 +137,9 @@ def st_fixed_container(
         position=position,
         margin=margin,
         id=key,
+        horizontal_css=horizontal_css,
     )
+    print(css)
     with fixed_container:
         st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
         st.markdown(
