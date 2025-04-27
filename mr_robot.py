@@ -8,8 +8,8 @@ import time
 import os
 
 # --- Credentials ---
-EMAIL = "efeucer@uchicago.edu"
-PASSWORD = "H6mRZknT000!" # Consider using environment variables or a config file for credentials
+EMAIL = ""
+PASSWORD = "" # Consider using environment variables or a config file for credentials
 
 def generate_avatar(file_name):
     # Set up the Chrome driver using webdriver-manager
