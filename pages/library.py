@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+from stickyhelper import st_fixed_container
 
 # ---- Set page config ----
 st.set_page_config(page_title="Library | BridgeSign", page_icon="📚", layout="wide")
@@ -28,7 +29,7 @@ st.markdown(
         margin-bottom: 1em;
     }
     div.stButton > button:hover {
-        background-color: #ffd96b;
+        background-color: #4dbbf4;
         color: black;
     }
     .welcome-text {
@@ -52,11 +53,25 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+with st_fixed_container(mode="fixed", position="top", border=True, horizontal_position="right", key="top_right"):
+    if st.button("Sign Up", key="signup_button"):
+        st.switch_page("pages/sign_up.py")
+
+    if st.button("Login", key="login_button"):
+        st.switch_page("pages/log_in.py")
+
+with st_fixed_container(mode="fixed", position="top", border=True, horizontal_position="left", key="top_left"):
+    if st.button("Resources", key="signup_button1"):
+        st.switch_page("pages/sign_up.py")
+
+    if st.button("About Us", key="login_button2"):
+        st.switch_page("pages/log_in.py")
+
+
+
 col1, col2, col3 = st.columns([1.5, 3, 1.5])
 
 with col1:
-    st.image("pictures/minihands3.png", use_container_width=True)
-    st.image("pictures/minihands4.png", use_container_width=True)
     st.image("pictures/minihands3.png", use_container_width=True)
     st.image("pictures/minihands4.png", use_container_width=True)
 
@@ -102,8 +117,6 @@ with col2:
 with col3:
     st.image("pictures/minihands4.png", use_container_width=True)
     st.image("pictures/minihands3.png", use_container_width=True)
-    st.image("pictures/minihands3.png", use_container_width=True)
-    st.image("pictures/minihands4.png", use_container_width=True)
 
 # ---- Footer (extra space at bottom) ----
 st.markdown("<br><br>", unsafe_allow_html=True)

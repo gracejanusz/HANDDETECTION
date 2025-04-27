@@ -40,6 +40,7 @@ st.markdown(
     body, .stApp {
         background-color: #f7f5ed;
     }
+
     /* Button styles */
     div.stButton > button {
         background-color: #ffe9a5;
@@ -121,37 +122,24 @@ st.markdown(
     }
 
     </style>
-
-    <script>
-    window.onscroll = function() {
-        var logo = document.getElementById('logo');
-        if (!logo) {
-            console.log("❌ ERROR: Logo not found by id='logo'!");
-            return;
-        }
-        console.log("✅ Logo found!");
-
-        console.log("Scroll position: " + document.documentElement.scrollTop);
-
-        if (document.documentElement.scrollTop > 50) {
-            logo.classList.add('sticky');
-            console.log("📦 Added 'sticky' class to logo.");
-        } else {
-            logo.classList.remove('sticky');
-            console.log("📤 Removed 'sticky' class from logo.");
-        }
-    };
-    </script>
     """,
     unsafe_allow_html=True
 )
 
-with st_fixed_container(mode="fixed", position="top", border=True):
+with st_fixed_container(mode="fixed", position="top", border=True, horizontal_position="right", key="top_right"):
     if st.button("Sign Up", key="signup_button"):
         st.switch_page("pages/sign_up.py")
 
     if st.button("Login", key="login_button"):
         st.switch_page("pages/log_in.py")
+
+with st_fixed_container(mode="fixed", position="top", border=True, horizontal_position="left", key="top_left"):
+    if st.button("Resources", key="signup_button1"):
+        st.switch_page("pages/sign_up.py")
+
+    if st.button("About Us", key="login_button2"):
+        st.switch_page("pages/log_in.py")
+
 
 
 # ---- Add vertical space before buttons ----
@@ -217,26 +205,35 @@ with col2:
 
     st.markdown(
         """
-        <h4 class="fade-in-slow" style='text-align: center; color: #2aaaff;'>
-            BridgeSign provides AI-driven ASL practice tools to help service providers build basic ASL literacy, addressing critical communication gaps with Deaf and Hard of Hearing individuals.
-
-        </h4>
+        <h5 class="fade-in-slow" style='text-align: center; color: #2aaaff;'>
+            According to the 2021 American Community Survey (ACS), about 3.6%% of the U.S. population,
+            or about 11 million individuals, consider themselves deaf or have serious difficulty hearing.
+        </h5>
         """,
         unsafe_allow_html=True
     )
     st.markdown(
         """
-        <h4 class="fade-in-slow" style='text-align: center; color: #2aaaff;'>
-            The platform emphasizes respect for Deaf and Hard of Hearing professionals by focusing on foundational skills, not replacing interpreters or aiming for full ASL fluency.
-        </h4>
+        <h5 class="fade-in-slow" style='text-align: center; color: #2aaaff;'>
+            The Hearing Loss Association of America estimates that 48 million Americans have some degree
+            of hearing loss.
+        </h5>
         """,
         unsafe_allow_html=True
     )
     st.markdown(
         """
-        <h4 class="fade-in-slow" style='text-align: center; color: #2aaaff;'>
-            Unlike most tools that translate Deaf and Hard of Hearing individuals into the hearing world, BridgeSign empowers institutions to adapt to ASL as a primary language, promoting accessibility and inclusivity.
-        </h4>
+        <h5 class="fade-in-slow" style='text-align: center; color: #2aaaff;'>
+            Over 500,000 people in America use ASL as their native language.
+        </h5>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        <h5 class="fade-in-slow" style='text-align: center; color: #2aaaff;'>
+            Currently there are only 10,000 licensed translators for ASL in America.
+        </h5>
         """,
         unsafe_allow_html=True
     )
@@ -261,6 +258,7 @@ with col3:
     st.image("pictures/minihands4.png", use_container_width=True)
     st.image("pictures/minihands3.png", use_container_width=True)
     st.image("pictures/minihands4.png", use_container_width=True)
+
 
 
 # ---- Footer (extra space at bottom) ----

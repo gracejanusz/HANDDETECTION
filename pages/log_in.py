@@ -34,7 +34,20 @@ st.markdown(
     <style>
     .stApp {
         background-color: #f7f5ed !important;
+        animation: fadeInAnimation ease 1s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
     }
+
+    @keyframes fadeInAnimation {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
     .stButton>button {
         color: black !important;
         background: #ffe9a5 !important;
@@ -64,6 +77,9 @@ st.markdown(
         pointer-events: none;
     }
     </style>
+    <script>
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    </script>
     """,
     unsafe_allow_html=True
 )
