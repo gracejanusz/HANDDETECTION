@@ -61,8 +61,8 @@ st.markdown(
 col1, col2, col3 = st.columns([1.5, 3, 1.5])
 
 with col1:
-    st.image("pictures/minihands1.png", use_container_width=True)
-    st.image("pictures/minihands2.png", use_container_width=True)
+    st.image("pictures/minihands3.png", use_container_width=True)
+    st.image("pictures/minihands4.png", use_container_width=True)
     st.image("pictures/minihands3.png", use_container_width=True)
     st.image("pictures/minihands4.png", use_container_width=True)
 
@@ -99,8 +99,7 @@ with col2:
     # Alphabet Course button
     if st.button("📖 Learning the Alphabet", key="alphabet_lesson", help="Click to start learning the ASL alphabet"):
         # Hacky way to run model26.py when button is clicked
-        os.system("streamlit run model26.py")
-        st.stop()
+        st.switch_page("pages/alphabet.py")  # Placeholder
 
     # Other placeholder buttons
     if st.button("🗣️ Everyday Talk", key="everyday_talk_lesson", help="Click to learn everyday phrases"):
@@ -116,8 +115,8 @@ with col2:
 with col3:
     st.image("pictures/minihands4.png", use_container_width=True)
     st.image("pictures/minihands3.png", use_container_width=True)
-    st.image("pictures/minihands2.png", use_container_width=True)
-    st.image("pictures/minihands1.png", use_container_width=True)
+    st.image("pictures/minihands3.png", use_container_width=True)
+    st.image("pictures/minihands4.png", use_container_width=True)
 
 # ---- Footer (extra space at bottom) ----
 st.markdown("<br><br>", unsafe_allow_html=True)
