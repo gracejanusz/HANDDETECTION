@@ -347,7 +347,7 @@ def generate_avatar(file_name):
 
 
     # Keep the browser open for a while (e.g., 5 seconds) to see the result
-    time.sleep(500)
+    time.sleep(5)
 
     # Close the browser window
     driver.quit()
