@@ -52,7 +52,7 @@ model, label_encoder, scaler, hands, device = load_resources()
 if not all([model, label_encoder, scaler, hands, device]):
     st.stop()
 
-LETTERS = list("abcdefghiklmnopqrstuvwxy")
+LETTERS = list("bcdefghiklmnopqrstuvwxya")
 
 # --- Session State Initialization ---
 
