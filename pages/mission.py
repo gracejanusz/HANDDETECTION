@@ -11,14 +11,25 @@ st.markdown(
     <style>
     .stApp {
         background-color: #f7f5ed;
+        animation: fadeInAnimation ease 1s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
     }
+
+    @keyframes fadeInAnimation {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
     h1, h2, h3, h4, h5, h6 {
         color: #42b3ff !important;
-        font-family: 'Georgia', serif !important;
         text-align: center;
     }
     .stApp p {
-        font-family: 'Georgia', serif;
         color: #0277b5;
         font-size: 18px;
         line-height: 1.6;
@@ -54,7 +65,7 @@ st.markdown(
     }
     </style>
     <script>
-        window.scrollTo(0, 0);
+        window.scrollTo({top: 0, behavior: 'smooth'});
     </script>
     """,
     unsafe_allow_html=True

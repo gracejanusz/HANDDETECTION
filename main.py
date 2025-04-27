@@ -126,19 +126,19 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-with st_fixed_container(mode="fixed", position="top", border=True, horizontal_position="right", key="top_right"):
-    if st.button("Sign Up", key="signup_button"):
-        st.switch_page("pages/sign_up.py")
+# with st_fixed_container(mode="fixed", position="top", border=True, horizontal_position="right", key="top_right"):
+#     if st.button("Sign Up", key="signup_button"):
+#         st.switch_page("pages/sign_up.py")
 
-    if st.button("Login", key="login_button"):
-        st.switch_page("pages/log_in.py")
+#     if st.button("Login", key="login_button"):
+#         st.switch_page("pages/log_in.py")
 
-with st_fixed_container(mode="fixed", position="top", border=True, horizontal_position="left", key="top_left"):
-    if st.button("Resources", key="signup_button1"):
-        st.switch_page("pages/sign_up.py")
+# with st_fixed_container(mode="fixed", position="top", border=True, horizontal_position="left", key="top_left"):
+#     if st.button("Resources", key="signup_button1"):
+#         st.switch_page("pages/sign_up.py")
 
-    if st.button("About Us", key="login_button2"):
-        st.switch_page("pages/mission.py")
+#     if st.button("About Us", key="login_button2"):
+#         st.switch_page("pages/mission.py")
 
 
 
@@ -149,12 +149,18 @@ st.markdown("<br><br>", unsafe_allow_html=True)
 col1, col2, col3 = st.columns([1.5, 3, 1.5])
 
 with col1:
+    if st.button("Resources", key="signup_button1"):
+        st.switch_page("pages/sign_up.py")
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
+    if st.button("About Us", key="login_button2"):
+        st.switch_page("pages/mission.py")
+
+
+    # st.markdown("<br>", unsafe_allow_html=True)
+    # st.markdown("<br>", unsafe_allow_html=True)
+    # st.markdown("<br>", unsafe_allow_html=True)
+    # st.markdown("<br>", unsafe_allow_html=True)
+    # st.markdown("<br>", unsafe_allow_html=True)
 
     st.image("pictures/minihands3.png", use_container_width=True)
     st.image("pictures/minihands4.png", use_container_width=True)
@@ -248,11 +254,18 @@ with col2:
     st.markdown("</div>", unsafe_allow_html=True)
 
 with col3:
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
+
+    if st.button("Sign Up", key="signup_button"):
+        st.switch_page("pages/sign_up.py")
+
+    if st.button("Login", key="login_button"):
+        st.switch_page("pages/log_in.py")
+
+    # st.markdown("<br>", unsafe_allow_html=True)
+    # st.markdown("<br>", unsafe_allow_html=True)
+    # st.markdown("<br>", unsafe_allow_html=True)
+    # st.markdown("<br>", unsafe_allow_html=True)
+    # st.markdown("<br>", unsafe_allow_html=True)
 
     st.image("pictures/minihands3.png", use_container_width=True)
     st.image("pictures/minihands4.png", use_container_width=True)
