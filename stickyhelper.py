@@ -139,7 +139,6 @@ def st_fixed_container(
         id=key,
         horizontal_css=horizontal_css,
     )
-    print(css)
     with fixed_container:
         st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
         st.markdown(
