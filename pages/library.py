@@ -105,7 +105,7 @@ with col2:
     st.markdown(
         """
         <div class="welcome-text">
-            Welcome to your BridgeSign learning library! Here you can access interactive lessons
+            Welcome to your HandsIn learning library! Here you can access interactive lessons
             designed to help you build foundational ASL skills.
         </div>
         """,
