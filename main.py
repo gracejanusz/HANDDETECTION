@@ -30,7 +30,7 @@ def get_image_html(image_path, width=575):
 
 
 # ---- Set page config ----
-st.set_page_config(page_title="BridgeSign", page_icon="🧏‍♀️", layout="wide")
+st.set_page_config(page_title="BridgeSign", layout="wide")
 
 # ---- CUSTOM CSS for background and button styling ----
 # ---- CUSTOM CSS for background and button styling ----
@@ -138,7 +138,7 @@ with st_fixed_container(mode="fixed", position="top", border=True, horizontal_po
         st.switch_page("pages/sign_up.py")
 
     if st.button("About Us", key="login_button2"):
-        st.switch_page("pages/log_in.py")
+        st.switch_page("pages/mission.py")
 
 
 
