@@ -109,9 +109,9 @@ st.markdown(
 )
 
 # ---- Sidebar ----
-with st.sidebar:
-    st.header("BridgeSign")
-    st.markdown("**Empowering Communication**")
+# with st.sidebar:
+#     st.header("BridgeSign")
+#     st.markdown("**Empowering Communication**")
 
 # ---- Add vertical space before buttons ----
 st.markdown("<br><br>", unsafe_allow_html=True)
