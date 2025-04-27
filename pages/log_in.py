@@ -4,7 +4,6 @@ import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, auth
 import requests
-from dotenv import load_dotenv
 import os
 
 firebase_credentials = {
@@ -26,17 +25,19 @@ cred = credentials.Certificate(firebase_credentials)
 if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
+# ---- Page Config ----
 st.set_page_config(page_title="Log In | BridgeSign", page_icon="🧏‍♀️", layout="wide")
 
+# ---- CUSTOM CSS ----
 st.markdown(
     """
     <style>
     .stApp {
-    background-color:#f7f5ed !important;
+        background-color: #f7f5ed !important;
     }
     .stButton>button {
         color: black !important;
-        background: #ffe9a5 !important; /* Blue */
+        background: #ffe9a5 !important;
         border-radius: 8px !important;
         height: 3em !important;
         width: 100% !important;
@@ -44,33 +45,38 @@ st.markdown(
         margin-top: 10px !important;
     }
     .stButton>button:hover {
-        background: #ffd96b !important; /* Orange */
+        background: #ffd96b !important;
         color: black !important;
     }
-    /* Text input styling */
     .stTextInput>div>div>input {
-        background-color: #ffffff !important; /* Pure white input boxes */
-        color: black !important; /* Typing is black */
+        background-color: #ffffff !important;
+        color: black !important;
         border-radius: 8px !important;
         padding: 0.75rem !important;
         font-size: 1em !important;
     }
-    /* Label styling */
     label {
-        color: #0077B6 !important; /* Make the field labels (Email, Password) blue */
+        color: #0077B6 !important;
         font-weight: bold !important;
     }
+    /* NEW: Disable clicks on images */
+    img {
+        pointer-events: none;
+    }
     </style>
-          """,
+    """,
     unsafe_allow_html=True
 )
 
+# ---- Layout ----
 col1, col2, col3 = st.columns([1.5, 3, 1.5])
 
+# ---- Left Column (small hand images) ----
 with col1:
     st.image("pictures/minihands3.png", use_container_width=True)
     st.image("pictures/minihands4.png", use_container_width=True)
 
+# ---- Middle Column (Login Form) ----
 with col2:
     st.markdown(
         "<h1 style='color:#0077B6; text-align: center;'>Welcome Back!</h1>",
@@ -84,15 +90,14 @@ with col2:
 
     if login_button:
         try:
-            # Securely load API key
             firebase_api_key = st.secrets["firebase"]["api_key"]
 
             url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={firebase_api_key}"
 
             payload = {
-            "email": email,
-            "password": password,
-            "returnSecureToken": True
+                "email": email,
+                "password": password,
+                "returnSecureToken": True
             }
 
             response = requests.post(url, json=payload)
@@ -108,13 +113,13 @@ with col2:
         except Exception as e:
             st.error(f"Login failed: {e}")
 
-    else:
-        if st.button("Back to Home", key="back_home_button_login"):
-            st.switch_page("main.py")
+    if st.button("Back to Home", key="back_home_button_login"):
+        st.switch_page("main.py")
 
+# ---- Right Column (small hand images) ----
 with col3:
     st.image("pictures/minihands3.png", use_container_width=True)
     st.image("pictures/minihands4.png", use_container_width=True)
 
-# ---- Footer (extra space at bottom) ----
+# ---- Footer space ----
 st.markdown("<br><br>", unsafe_allow_html=True)
