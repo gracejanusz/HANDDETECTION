@@ -6,15 +6,36 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import os
+import glob
 
 # --- Credentials ---
 EMAIL = "masterhacker1632@gmail.com"
 PASSWORD = "Mstrhckr1632" # Consider using environment variables or a config file for credentials
 
-def generate_avatar(file_name):
+def generate_avatar(file_path):
+    """
+    Automates the DeepMotion Animate 3D process to generate an avatar video
+    from a given input video file.
+
+    Args:
+        file_path (str): The absolute path to the input video file (e.g., MP4).
+    """
     # Set up the Chrome driver using webdriver-manager
     service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service)
+
+    # Configure Chrome options for downloading files
+    options = webdriver.ChromeOptions()
+    download_dir = os.path.join(os.getcwd(), "Videos", "avatar_output")
+    if not os.path.exists(download_dir):
+        os.makedirs(download_dir)
+    options.add_experimental_option("prefs", {
+        "download.default_directory": download_dir,
+        "download.prompt_for_download": False, # To auto download the file
+        "download.directory_upgrade": True,
+        "safebrowsing.enabled": True
+    })
+
+    driver = webdriver.Chrome(service=service, options=options)
     driver.maximize_window() # Maximize window for better element visibility
 
     # The URL to open
@@ -116,12 +137,14 @@ def generate_avatar(file_name):
 
         # --- Upload File using the hidden input element ---
         # Define the absolute path to the file you want to upload
-        file_to_upload = f"/Users/efeucer/Desktop/hacktech_2/HANDDETECTION/{file_name}.mp4"
-        absolute_file_path = os.path.abspath(file_to_upload)
+        # Use the provided file_path directly
+        absolute_file_path = os.path.abspath(file_path)
         print(f"Attempting to upload file: {absolute_file_path}")
 
         if not os.path.exists(absolute_file_path):
             print(f"ERROR: File not found at path: {absolute_file_path}")
+            driver.quit() # Close browser if file not found
+            return None # Return None if file not found
         else:
             try:
                 # Locate the hidden file input element by its ID
@@ -347,13 +370,51 @@ def generate_avatar(file_name):
 
 
     # Keep the browser open for a while (e.g., 5 seconds) to see the result
+    # This is mainly for debugging; in a production scenario, you might remove this.
     time.sleep(5)
+
+    # --- Attempt to find the downloaded file ---
+    # This is a basic approach. A more robust solution would monitor the download directory
+    # for a new file appearing and waiting for the download to complete.
+    # For simplicity here, we'll just list files in the download directory after a delay.
+    time.sleep(10) # Wait a bit longer for the download to potentially finish
+    downloaded_file_path = None
+    try:
+        # List files in the download directory, sorted by modification time (newest first)
+        list_of_files = glob.glob(os.path.join(download_dir, '*'))
+        if list_of_files:
+            latest_file = max(list_of_files, key=os.path.getctime)
+            # Basic check to ensure it's likely a video file (you might need more robust checks)
+            if latest_file.lower().endswith('.mp4'):
+                 downloaded_file_path = latest_file
+                 print(f"Identified potential downloaded file: {downloaded_file_path}")
+            else:
+                 print(f"Latest file in download directory is not an MP4: {latest_file}")
+        else:
+            print(f"No files found in download directory: {download_dir}")
+    except Exception as download_check_error:
+        print(f"Error checking download directory: {download_check_error}")
+
 
     # Close the browser window
     driver.quit()
 
+    return downloaded_file_path # Return the path of the downloaded file
+
 if __name__ == "__main__":
-    # Example usage
-    file_name = "hello"  # Replace with your actual file name (without extension)
-    generate_avatar(file_name)
+    # Example usage - replace with a valid path for testing if needed
+    # For integration with avatar.py, this block is less critical as avatar.py will call generate_avatar
+    # with the actual generated video path.
+    # Example:
+    # test_video_path = "/Users/gracejanusz/HANDDETECTION/Videos/hello.mp4" # Replace with a real file
+    # if os.path.exists(test_video_path):
+    #     print(f"Running mr_robot.py example with: {test_video_path}")
+    #     final_video_path = generate_avatar(test_video_path)
+    #     if final_video_path:
+    #         print(f"Downloaded avatar video path: {final_video_path}")
+    #     else:
+    #         print("Avatar generation process completed, but could not retrieve downloaded file path.")
+    # else:
+    #     print(f"Test video file not found at: {test_video_path}")
+    print("mr_robot.py is intended to be called from avatar.py.")
     print("Avatar generation process completed.")
