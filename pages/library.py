@@ -35,7 +35,6 @@ st.markdown(
     }
     h1, h2, h3, h4, h5, h6 {
         color: #42b3ff !important;
-        font-family: 'Georgia', serif !important;
         text-align: center;
     }
     div.stButton > button {
@@ -78,9 +77,9 @@ with st_fixed_container(mode="fixed", position="top", border=True, horizontal_po
     st.markdown(
         """
         <div style="text-align: center; padding: 8px;">
-            <h4 style="margin: 5px 0;">        User Name</h4>
+            <h4 style="margin: 5px 0;">        hacktech</h4>
             <p style="font-size: 12px; color: grey; margin: 2px 0;">Healthcare Specialist</p>
-            <p style="font-size: 12px; color: grey; margin: 2px 0;">username@example.com</p>
+            <p style="font-size: 12px; color: grey; margin: 2px 0;">hacktech@gmail.com</p>
         </div>
         """,
         unsafe_allow_html=True
@@ -106,7 +105,7 @@ with col2:
     st.markdown(
         """
         <div class="welcome-text">
-            Welcome to your BridgeSign learning library! Here you can access interactive lessons
+            Welcome to your HandsIn learning library! Here you can access interactive lessons
             designed to help you build foundational ASL skills.
         </div>
         """,

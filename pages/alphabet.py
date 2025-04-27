@@ -52,7 +52,7 @@ model, label_encoder, scaler, hands, device = load_resources()
 if not all([model, label_encoder, scaler, hands, device]):
     st.stop()
 
-LETTERS = list("abcdefghiklmnopqrstuvwxy")
+LETTERS = list("bcdefghiklmnopqrstuvwxya")
 
 # --- Session State Initialization ---
 
@@ -73,7 +73,7 @@ st.markdown("""
     <style>
     .stApp { background-color: #f5f5dc !important; color: black !important; }
     div[data-testid="stHorizontalBlock"] { height: 100%; }
-    
+
     /* Left Panel (Reference Image Panel) */
     div[data-testid="stVerticalBlock"]:has(div[data-testid="stImage"]) {
         background-color:  #ffe9a5;
@@ -99,7 +99,7 @@ st.markdown("""
 
     .stButton>button { background-color:  #0277b5 !important; color: black !important; border-radius: 5px; font-size: 1.1em; margin-top: 10px; }
     .stButton>button:hover { background-color:  #2aaaff !important; }
-    
+
     .feedback-correct { color: darkgreen; background-color: #e0ffe0; font-weight: bold; padding: 10px; border-radius: 5px; }
     .feedback-incorrect { color: darkred; background-color: #ffe0e0; font-weight: bold; padding: 10px; border-radius: 5px; }
     .feedback-info { color: #cc5500; background-color: #fff0e0; font-weight: bold; padding: 10px; border-radius: 5px; }
@@ -215,6 +215,9 @@ if current_letter:
 
             st.session_state.capture_pressed = False
             st.session_state.last_captured_image = None  # 🚨 Clear the photo after checking
+
+        if st.button("Back To Library", key="library_button"):
+            st.switch_page("pages/library.py")
 
 else:
     st.balloons()
