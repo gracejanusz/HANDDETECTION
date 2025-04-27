@@ -2,10 +2,9 @@ import os
 import requests
 from bs4 import BeautifulSoup
 import streamlit as st
-import cv2
-
-import os
 import subprocess
+
+
 
 def build_fingerspelled_video_ffmpeg(word):
     videos_dir = "Videos"
