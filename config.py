@@ -1,5 +1,5 @@
 # === config.py ===
 import os
 # === config.py ===
-GEMINI_API_KEY = "AIzaSyDwYfJJzq9jSurKdtdsx-Yk8p2eYtq7XCE"
+# GEMINI_API_KEY = gemini api key goes in 
 
